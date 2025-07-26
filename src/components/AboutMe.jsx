@@ -526,7 +526,7 @@ yang tidak hanya indah tetapi juga sangat fungsional dan mudah diakses.
                 <div className="space-y-4">
                   {[
                     { label: 'Nama Lengkap', value: 'Naufal Hidayatul Aulia' },
-                    { label: 'Usia', value: '21 Years Old' },
+                    { label: 'Usia', value: '20 tahun' },
                     { label: 'Lokasi', value: 'Pekanbaru, Indonesia' },
                     { label: 'Universitas', value: 'UIN Sultan Syarif Kasim Riau' },
                     { label: 'Jurusan', value: 'Informatics Engineering' },
