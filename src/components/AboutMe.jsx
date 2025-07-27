@@ -415,7 +415,7 @@ Saya spesialis dalam pengembangan front-end dengan teknologi modern seperti Reac
                     <div className="space-y-3">
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div className="bg-gray-800/50 px-3 py-1 rounded-lg text-gray-300 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300">
-                          React.js
+                          Mobile Development
                         </div>
                         <div className="bg-gray-800/50 px-3 py-1 rounded-lg text-gray-300 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300">
                           JavaScript
@@ -495,12 +495,12 @@ yang tidak hanya indah tetapi juga sangat fungsional dan mudah diakses.
                 <h4 className="text-2xl font-bold text-white">Skills</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {[
+                    { skill: 'Mobile Development', level: '90%' },
+                    { skill: 'Website Development', level: '95%' },
+                    { skill: 'Full Stack Developer', level: '92%' },
                     { skill: 'React.js', level: '90%' },
-                    { skill: 'JavaScript', level: '85%' },
-                    { skill: 'HTML/CSS', level: '95%' },
-                    { skill: 'Tailwind CSS', level: '90%' },
-                    { skill: 'Node.js', level: '75%' },
-                    { skill: 'UI/UX Design', level: '80%' }
+                    { skill: 'UI/UX', level: '87%' },
+                    { skill: 'Public Speaking', level: '96%' }
                   ].map((item, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between items-center">
