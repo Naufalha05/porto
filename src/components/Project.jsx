@@ -26,7 +26,17 @@ export default function Project() {
   const [hoveredProject, setHoveredProject] = useState(null);
   const [certificatesVisible, setCertificatesVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [pageLoaded, setPageLoaded] = useState(false);
   const certificatesRef = useRef(null);
+
+  // Page load animation
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoaded(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -172,9 +182,15 @@ export default function Project() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30"></div>
-      <div className="absolute top-40 right-40 w-4 h-4 bg-cyan-400 rounded-full"></div>
-      <div className="absolute bottom-20 left-20 w-2 h-2 bg-red-500 rounded-full"></div>
+      <div className={`absolute top-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30 transition-all duration-1000 ease-out ${
+        pageLoaded ? 'transform translate-y-0 opacity-30' : 'transform translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '800ms' }}></div>
+      <div className={`absolute top-40 right-40 w-4 h-4 bg-cyan-400 rounded-full transition-all duration-1000 ease-out ${
+        pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '900ms' }}></div>
+      <div className={`absolute bottom-20 left-20 w-2 h-2 bg-red-500 rounded-full transition-all duration-1000 ease-out ${
+        pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '1000ms' }}></div>
       
       {/* Floating cursor effect */}
       <div 
@@ -185,12 +201,12 @@ export default function Project() {
         }}
       ></div>
 
-      {/* Navbar - Same as AboutMe.jsx */}
-      <nav className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out ${
+      {/* Navbar */}
+      <nav className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-1000 ease-out ${
         isScrolled 
           ? 'w-80 h-16 mt-4' 
           : 'w-full h-20 bg-transparent'
-      }`}>
+      } ${pageLoaded ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
         <div className={`h-full transition-all duration-700 ease-out ${
           isScrolled ? 'px-6 flex items-center justify-center gap-6' : 'px-8 max-w-7xl mx-auto flex items-center justify-between'
         }`}>
@@ -368,8 +384,12 @@ export default function Project() {
       </nav>
 
       {/* Hero Section */}
-      <div className="pt-32 pb-20 px-4 sm:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+      <div className={`pt-32 pb-20 px-4 sm:px-8 max-w-7xl mx-auto transition-all duration-1000 ease-out ${
+        pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-12 opacity-0'
+      }`} style={{ transitionDelay: '200ms' }}>
+        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${
+          pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-8 opacity-0'
+        }`} style={{ transitionDelay: '300ms' }}>
           <div className="inline-flex items-center space-x-2 bg-red-500/10 px-4 py-2 rounded-full border border-red-500/20 mb-6">
             <Sparkles size={16} className="text-red-400" />
             <span className="text-red-400 text-sm font-medium">Featured Projects</span>
@@ -387,11 +407,13 @@ export default function Project() {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group relative bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 hover:border-red-500/30 transition-all duration-500 hover:transform hover:scale-105"
+              className={`group relative bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 hover:border-red-500/30 transition-all duration-1000 hover:transform hover:scale-105 ${
+                pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-12 opacity-0'
+              }`}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
               style={{
-                animationDelay: `${index * 200}ms`
+                transitionDelay: `${400 + index * 150}ms`
               }}
             >
               {/* Project Image */}
@@ -510,10 +532,15 @@ export default function Project() {
       {/* Certificates Section */}
       <div 
         ref={certificatesRef}
-        className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 px-4 relative overflow-hidden"
+        className={`min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 px-4 relative overflow-hidden transition-all duration-1000 ease-out ${
+          pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-12 opacity-0'
+        }`}
+        style={{ transitionDelay: '850ms' }}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 transition-all duration-1000 ease-out ${
+            pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-8 opacity-0'
+          }`} style={{ transitionDelay: '950ms' }}>
             <div className="inline-flex items-center space-x-2 bg-yellow-500/10 px-4 py-2 rounded-full border border-yellow-500/20 mb-6">
               <Award size={16} className="text-yellow-400" />
               <span className="text-yellow-400 text-sm font-medium">Achievements</span>
@@ -590,7 +617,9 @@ export default function Project() {
           </div>
 
           {/* Statistics */}
-          <div className="grid md:grid-cols-3 gap-8 mt-20">
+          <div className={`grid md:grid-cols-3 gap-8 mt-20 transition-all duration-1000 ease-out ${
+            pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-8 opacity-0'
+          }`} style={{ transitionDelay: '1050ms' }}>
             <div className="text-center bg-gray-800/30 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
               <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Code2 size={24} className="text-red-400" />
@@ -617,7 +646,9 @@ export default function Project() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black border-t border-gray-800 py-12">
+      <footer className={`bg-black border-t border-gray-800 py-12 transition-all duration-1000 ease-out ${
+        pageLoaded ? 'transform translate-y-0 opacity-100' : 'transform translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '1150ms' }}>
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid md:grid-cols-3 gap-8 items-center">
             

@@ -22,6 +22,7 @@ export default function AboutMe() {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [lanyardRotation, setLanyardRotation] = useState({ x: 0, y: 0 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
 
   // Teks untuk efek typewriter
   const typewriterTexts = [
@@ -30,6 +31,16 @@ export default function AboutMe() {
     "I love creating beautiful UI/UX",
     "Welcome to my portfolio!"
   ];
+
+  // Initialize page load animation
+  useEffect(() => {
+    // Set page loaded after a small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      setIsPageLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,16 +113,23 @@ export default function AboutMe() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30"></div>
-      <div className="absolute top-40 right-40 w-4 h-4 bg-cyan-400 rounded-full"></div>
-      <div className="absolute bottom-20 left-20 w-2 h-2 bg-red-500 rounded-full"></div>
+      <div className={`absolute top-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30 transition-all duration-1000 ease-out ${
+        isPageLoaded ? 'translate-y-0 opacity-30' : 'translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '300ms' }}></div>
+      <div className={`absolute top-40 right-40 w-4 h-4 bg-cyan-400 rounded-full transition-all duration-1000 ease-out ${
+        isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '400ms' }}></div>
+      <div className={`absolute bottom-20 left-20 w-2 h-2 bg-red-500 rounded-full transition-all duration-1000 ease-out ${
+        isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`} style={{ transitionDelay: '500ms' }}></div>
       
       {/* Navbar */}
       <nav className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out ${
         isScrolled 
           ? 'w-80 h-16 mt-4' 
           : 'w-full h-20 bg-transparent'
-      }`}>
+      } ${isPageLoaded ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'}`}
+      style={{ transitionDelay: isPageLoaded ? '100ms' : '0ms' }}>
         <div className={`h-full transition-all duration-700 ease-out ${
           isScrolled ? 'px-6 flex items-center justify-center gap-6' : 'px-8 max-w-7xl mx-auto flex items-center justify-between'
         }`}>
@@ -293,7 +311,9 @@ export default function AboutMe() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
           
           {/* Left Content - Typewriter Text */}
-          <div className="space-y-6 lg:space-y-8 text-center lg:text-left order-2 lg:order-1">
+          <div className={`space-y-6 lg:space-y-8 text-center lg:text-left order-2 lg:order-1 transition-all duration-1000 ease-out ${
+            isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+          }`} style={{ transitionDelay: '200ms' }}>
             <div className="space-y-6">
               {/* Typewriter Text */}
               <div className="h-20 flex items-center">
@@ -306,13 +326,17 @@ export default function AboutMe() {
               </div>
               
               {/* Static Description */}
-              <div className="space-y-4">
+              <div className={`space-y-4 transition-all duration-1000 ease-out ${
+                isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`} style={{ transitionDelay: '400ms' }}>
                 <p className="text-lg sm:text-xl text-gray-300 font-light leading-relaxed">
                  Seseorang yang sangat antusias menciptakan pengalaman digital yang indah dan fungsional.
 Saya spesialis dalam pengembangan front-end dengan teknologi modern seperti React, JavaScript, dan desain responsif
                 </p>
                 
-                <div className="space-y-2 text-left">
+                <div className={`space-y-2 text-left transition-all duration-1000 ease-out ${
+                  isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`} style={{ transitionDelay: '600ms' }}>
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
                     <span className="text-gray-300">Frontend Developer</span>
@@ -331,7 +355,9 @@ Saya spesialis dalam pengembangan front-end dengan teknologi modern seperti Reac
           </div>
 
           {/* Right Content - Interactive Lanyard */}
-          <div className="relative flex justify-center lg:justify-end order-1 lg:order-2">
+          <div className={`relative flex justify-center lg:justify-end order-1 lg:order-2 transition-all duration-1000 ease-out ${
+            isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+          }`} style={{ transitionDelay: '300ms' }}>
             <div 
               className="relative cursor-pointer select-none"
               onMouseMove={handleMouseMove}
@@ -463,9 +489,13 @@ Saya spesialis dalam pengembangan front-end dengan teknologi modern seperti Reac
       </div>
 
       {/* About Section */}
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 px-4">
+      <div className={`min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black py-20 px-4 transition-all duration-1000 ease-out ${
+        isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+      }`} style={{ transitionDelay: '700ms' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className={`text-center mb-16 transition-all duration-1000 ease-out ${
+            isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`} style={{ transitionDelay: '800ms' }}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6">
               About <span className="text-red-500 font-medium">Me</span>
             </h2>
@@ -476,7 +506,9 @@ Saya spesialis dalam pengembangan front-end dengan teknologi modern seperti Reac
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-8">
+            <div className={`space-y-8 transition-all duration-1000 ease-out ${
+              isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+            }`} style={{ transitionDelay: '900ms' }}>
               <div className="space-y-6">
                 <h3 className="text-3xl font-bold text-white">My Journey</h3>
                 <p className="text-lg text-gray-300 leading-relaxed">
@@ -520,7 +552,9 @@ yang tidak hanya indah tetapi juga sangat fungsional dan mudah diakses.
             </div>
 
             {/* Right Content - Personal Info */}
-            <div className="space-y-8">
+            <div className={`space-y-8 transition-all duration-1000 ease-out ${
+              isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+            }`} style={{ transitionDelay: '1000ms' }}>
               <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-red-500/30 transition-all duration-300">
                 <h4 className="text-2xl font-bold text-white mb-6">Personal Info</h4>
                 <div className="space-y-4">
@@ -566,7 +600,9 @@ yang tidak hanya indah tetapi juga sangat fungsional dan mudah diakses.
       </div>
 
       {/* Footer */}
-      <footer className="bg-black border-t border-gray-800 py-12">
+      <footer className={`bg-black border-t border-gray-800 py-12 transition-all duration-1000 ease-out ${
+        isPageLoaded ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+      }`} style={{ transitionDelay: '1100ms' }}>
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid md:grid-cols-3 gap-8 items-center">
             

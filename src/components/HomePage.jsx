@@ -25,6 +25,7 @@ export default function HomePage() {
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomedImageIndex, setZoomedImageIndex] = useState(null);
   const [holdTimer, setHoldTimer] = useState(null);
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
   
   const navigate = useNavigate();
 
@@ -59,6 +60,16 @@ export default function HomePage() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Page load animation effect
+  useEffect(() => {
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      setIsPageLoaded(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const navItems = [
@@ -226,8 +237,38 @@ export default function HomePage() {
           }
         }
         
+        @keyframes swipe-up {
+          from {
+            opacity: 0;
+            transform: translateY(100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes swipe-up-fast {
+          from {
+            opacity: 0;
+            transform: translateY(60px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
         .animate-zoom-in {
           animation: zoom-in 0.3s ease-out;
+        }
+        
+        .animate-swipe-up {
+          animation: swipe-up 0.8s ease-out;
+        }
+        
+        .animate-swipe-up-fast {
+          animation: swipe-up-fast 0.6s ease-out;
         }
         
         .gallery-image {
@@ -237,18 +278,40 @@ export default function HomePage() {
         .gallery-image:hover {
           transform: translateX(var(--translate-x, 0)) scale(var(--scale, 1)) !important;
         }
+        
+        .page-load-animation {
+          opacity: 0;
+          transform: translateY(100px);
+        }
+        
+        .page-load-animation.loaded {
+          opacity: 1;
+          transform: translateY(0);
+          transition: all 0.8s ease-out;
+        }
+        
+        .page-load-animation-fast {
+          opacity: 0;
+          transform: translateY(60px);
+        }
+        
+        .page-load-animation-fast.loaded {
+          opacity: 1;
+          transform: translateY(0);
+          transition: all 0.6s ease-out;
+        }
       `}</style>
       {/* Background decorative elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30"></div>
-      <div className="absolute top-40 right-40 w-4 h-4 bg-cyan-400 rounded-full"></div>
-      <div className="absolute bottom-20 left-20 w-2 h-2 bg-red-500 rounded-full"></div>
+      <div className={`absolute top-20 right-20 w-32 h-32 border-4 border-cyan-400 rounded-full opacity-30 page-load-animation-fast ${isPageLoaded ? 'loaded' : ''}`} style={{transitionDelay: '0.2s'}}></div>
+      <div className={`absolute top-40 right-40 w-4 h-4 bg-cyan-400 rounded-full page-load-animation-fast ${isPageLoaded ? 'loaded' : ''}`} style={{transitionDelay: '0.4s'}}></div>
+      <div className={`absolute bottom-20 left-20 w-2 h-2 bg-red-500 rounded-full page-load-animation-fast ${isPageLoaded ? 'loaded' : ''}`} style={{transitionDelay: '0.6s'}}></div>
       
       {/* Navbar */}
-      <nav className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out ${
+      <nav className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out page-load-animation-fast ${isPageLoaded ? 'loaded' : ''} ${
         isScrolled 
           ? 'w-80 h-16 mt-4' 
           : 'w-full h-20 bg-transparent'
-      }`}>
+      }`} style={{transitionDelay: '0.1s'}}>
         <div className={`h-full transition-all duration-700 ease-out ${
           isScrolled ? 'px-6 flex items-center justify-center gap-6' : 'px-8 max-w-7xl mx-auto flex items-center justify-between'
         }`}>
@@ -430,7 +493,7 @@ export default function HomePage() {
       </nav>
 
       {/* Main Content */}
-      <div className="flex items-center min-h-screen px-4 sm:px-8 max-w-7xl mx-auto">
+      <div className={`flex items-center min-h-screen px-4 sm:px-8 max-w-7xl mx-auto page-load-animation ${isPageLoaded ? 'loaded' : ''}`} style={{transitionDelay: '0.2s'}}>
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
           
           {/* Left Content */}
@@ -476,7 +539,7 @@ export default function HomePage() {
       </div>
 
       {/* Gallery Section */}
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center py-20 px-4">
+      <div className={`min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center py-20 px-4 page-load-animation ${isPageLoaded ? 'loaded' : ''}`} style={{transitionDelay: '0.4s'}}>
         <div className="max-w-7xl mx-auto text-center">
           {/* Section Header */}
           <div className="mb-16">
@@ -680,7 +743,7 @@ export default function HomePage() {
       )}
 
       {/* Footer */}
-      <footer className="bg-black border-t border-gray-800 py-12">
+      <footer className={`bg-black border-t border-gray-800 py-12 page-load-animation ${isPageLoaded ? 'loaded' : ''}`} style={{transitionDelay: '0.6s'}}>
         <div className="max-w-7xl mx-auto px-8">
           <div className="grid md:grid-cols-3 gap-8 items-center">
             
