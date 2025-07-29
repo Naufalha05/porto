@@ -563,7 +563,7 @@ yang tidak hanya indah tetapi juga sangat fungsional dan mudah diakses.
                     { label: 'Usia', value: '20 tahun' },
                     { label: 'Lokasi', value: 'Pekanbaru, Indonesia' },
                     { label: 'Universitas', value: 'UIN Sultan Syarif Kasim Riau' },
-                    { label: 'Jurusan', value: 'Informatics Engineering' },
+                    { label: 'Jurusan', value: 'Teknik Informatika' },
                     { label: 'Email', value: 'nhidayatulaulia@gmail.com' },
                     { label: 'Bahasa', value: 'Indonesian, English' },
                     { label: 'Keahlian', value: 'Web Dev, UI/UX' }
